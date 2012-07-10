@@ -1,0 +1,7 @@
+CREATE FUNCTION buscarProveedorNit (@nitProveedor char(15))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from PROVEEDORES where NIT=@nitProveedor
+);

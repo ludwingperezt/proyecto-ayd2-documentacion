@@ -1,0 +1,380 @@
+
+
+______________________________________
+
+
+        MODIFICAR CLIENTE
+
+______________________________________
+
+
+
+create PROCEDURE ModificarCliente @tipoCliente tinyint, @nombreCliente varchar(40), 
+@apellidoCliente varchar(40), @direccionCliente varchar(60), @nitCliente char(15)
+AS
+update CLIENTES
+set IDTIPOCLIENTE =@tipoCliente,
+NOMBRE= @nombreCliente,
+APELLIDO= @apellidoCliente,
+DIRECCION= @direccionCliente
+where NIT =@nitCliente;
+GO
+
+
+______________________________________
+
+
+       BUSCAR CLIENTE POR NIT
+______________________________________
+
+
+CREATE FUNCTION buscarClienteNit (@nitCliente char(12))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from CLIENTES where NIT=@nitCliente
+);
+
+
+
+______________________________________
+
+
+       BUSCAR CLIENTE POR NOMBRE
+______________________________________
+
+
+CREATE FUNCTION buscarClienteNombre (@nombreCliente varchar(40))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from CLIENTES where NOMBRE=@nombreCliente
+);
+
+
+
+______________________________________
+
+
+       BUSCAR CLIENTE POR APELLIDO
+______________________________________
+
+
+CREATE FUNCTION buscarClienteApellido (@apellidoCliente varchar(40))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from CLIENTES where APELLIDO=@apellidoCliente
+);
+
+
+
+______________________________________
+
+
+     BUSCAR CLIENTE POR DIRECCION
+______________________________________
+
+
+
+CREATE FUNCTION buscarClienteDireccion (@direccionCliente varchar(60))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from CLIENTES where DIRECCION=@direccionCliente
+);
+
+
+
+______________________________________
+
+
+           INSERTAR EMPLEADOS
+
+______________________________________
+
+
+
+
+create PROCEDURE  insertarEmpleados @idRol tinyint, @nombreEmpleado varchar(40), 
+@apellidoEmpleado varchar(40), @direccionEmpleado varchar(60), @telefonoEmpleado char(15),
+@celularEmpleado char(15), @puestoEmpleado varchar(25), @fechaContratacionEmpleado datetime2(7),
+@salarioEmpleado money, @usuarioEmpleado char(12), @passwordEmpleado binary(20), @habilitado bit
+AS
+insert into EMPLEADOS(IDROL,NOMBRE,APELLIDO,DIRECCION,TELEFONO,CELULAR,PUESTO,FECHACONTRATACION,
+SALARIO, USUARIO,PASSWORD, HABILITADO) values
+  (@idRol,@nombreEmpleado,@apellidoEmpleado,@direccionEmpleado, @telefonoEmpleado,
+  @celularEmpleado,@puestoEmpleado,@fechaContratacionEmpleado,@salarioEmpleado,@usuarioEmpleado,
+  @passwordEmpleado,@habilitado);
+GO
+
+
+______________________________________
+
+
+        DAR DE BAJA A UN EMPLEADO
+
+______________________________________
+
+
+create PROCEDURE darBajaEmpleado @idEmpleado tinyint
+AS
+update EMPLEADOS
+set HABILITADO =0
+where IDEMPLEADO=@idEmpleado;
+GO
+
+
+
+
+______________________________________
+
+
+        MODIFICAR EMPLEADO
+
+______________________________________
+
+
+create PROCEDURE ModificarEmpleado @idEmpleado tinyint, @idRol tinyint, @nombreEmpleado varchar(40), 
+@apellidoEmpleado varchar(40), @direccionEmpleado varchar(60), @telefonoEmpleado char(15),
+@celularEmpleado char(15), @puestoEmpleado varchar(25), @fechaContratacionEmpleado datetime2(7),
+@salarioEmpleado money, @usuarioEmpleado char(12), @passwordEmpleado binary(20), @habilitado bit
+AS
+update EMPLEADOS
+set IDROL =@idRol,
+NOMBRE= @nombreEmpleado,
+APELLIDO= @apellidoEmpleado,
+DIRECCION= @direccionEmpleado,
+TELEFONO=@telefonoEmpleado,
+CELULAR=@celularEmpleado,
+PUESTO=@puestoEmpleado,
+FECHACONTRATACION=@fechaContratacionEmpleado,
+SALARIO=@salarioEmpleado,
+USUARIO=@usuarioEmpleado,
+PASSWORD=@passwordEmpleado
+where IDEMPLEADO =@idEmpleado;
+GO
+
+
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR NOMBRE
+______________________________________
+
+CREATE FUNCTION buscarEmpleadoNombre (@nombreEmpleado varchar(40))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where NOMBRE=@nombreEmpleado
+);
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR APELLIDO
+______________________________________
+
+
+CREATE FUNCTION buscarEmpleadoApellido (@apellidoEmpleado varchar(40))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where APELLIDO=@apellidoEmpleado
+);
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR DIRECCION
+______________________________________
+
+CREATE FUNCTION buscarEmpleadoDireccion (@direccionEmpleado varchar(60))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where DIRECCION=@direccionEmpleado
+);
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR TELEFONO
+______________________________________
+
+
+CREATE FUNCTION buscarEmpleadoTelefono (@telefonoEmpleado char(15))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where TELEFONO=@telefonoEmpleado
+);
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR CELULAR
+
+______________________________________
+
+
+
+CREATE FUNCTION buscarEmpleadoCelular (@celularEmpleado char(15))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where CELULAR=@celularEmpleado
+);
+
+
+______________________________________
+
+
+     BUSCAR EMPLEADO POR PUESTO
+
+______________________________________
+
+
+
+
+CREATE FUNCTION buscarEmpleadoPuesto (@puestoEmpleado varchar(25))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where PUESTO=@puestoEmpleado
+);
+
+______________________________________
+
+
+BUSCAR EMPLEADO POR FECHA DE CONTRATACION
+
+______________________________________
+
+
+
+CREATE FUNCTION buscarEmpleadoFechaContratacion (@FechaContratacionEmpleado datetime2(7))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where FECHACONTRATACION=@FechaContratacionEmpleado
+);
+
+
+______________________________________
+
+
+      BUSCAR EMPLEADO USUARIO
+
+______________________________________
+
+CREATE FUNCTION buscarEmpleadoUsuario (@UsuarioEmpleado char(12))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from EMPLEADOS where USUARIO=@UsuarioEmpleado
+);
+
+
+______________________________________
+
+
+      INSERTAR TIPO DE CLIENTE
+
+______________________________________
+
+
+create PROCEDURE insertarTipoCliente @IdtipoCliente tinyint, @nombreTipo varchar(15), 
+@descripcionTipo varchar(60), @descuentoTipo float
+AS
+insert into TIPOSCLIENTES(IDTIPOCLIENTE,NOMBRE,DESCRIPCION,DESCUENTO) values
+  (@IdtipoCliente,@nombreTipo,@descripcionTipo,@descuentoTipo);
+GO
+
+
+______________________________________
+
+
+      MODIFICAR TIPO DE CLIENTE
+
+______________________________________
+
+
+create PROCEDURE ModificarTipoCliente @tipoCliente tinyint, @nombreTipo varchar(15), 
+@descripcionTipo varchar(60), @descuentoTipo float 
+AS
+update TIPOSCLIENTES
+set NOMBRE =@nombreTipo,
+DESCRIPCION= @descripcionTipo,
+DESCUENTO= @descripcionTipo
+where IDTIPOCLIENTE =@tipoCliente;
+GO
+
+
+______________________________________
+
+
+   BUSCAR TIPO CLIENTE POR NOMBRE
+
+______________________________________
+
+
+CREATE FUNCTION buscarTipoClienteNombre (@TipoClienteNombre char(15))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from TIPOSCLIENTES where NOMBRE=@TipoClienteNombre
+);
+
+
+______________________________________
+
+
+  BUSCAR TIPO CLIENTE POR DESCRIPCION
+
+______________________________________
+
+CREATE FUNCTION buscarTipoClienteDescripcion (@TipoClienteDescripcion char(60))
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from TIPOSCLIENTES where DESCRIPCION=@TipoClienteDescripcion
+);
+
+
+______________________________________
+
+
+  BUSCAR TIPO CLIENTE POR DESCUENTO
+
+______________________________________
+
+
+CREATE FUNCTION buscarTipoClienteDescuento (@TipoClienteDescuento float)
+RETURNS TABLE
+AS 
+RETURN
+(
+	SELECT * from TIPOSCLIENTES where DESCUENTO=@TipoClienteDescuento
+);
+
