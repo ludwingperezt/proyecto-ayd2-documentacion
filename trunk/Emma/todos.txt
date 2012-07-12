@@ -1,3 +1,4 @@
+
 CREATE FUNCTION buscarProveedorNit (@nitProveedor char(15))
 RETURNS TABLE
 AS 
@@ -62,6 +63,8 @@ where IDEMPLEADO=@idEmpleado;
 GO
 
 
+
+
 create PROCEDURE ModificarEmpleado @idEmpleado tinyint, @idRol tinyint, @nombreEmpleado varchar(40), 
 @apellidoEmpleado varchar(40), @direccionEmpleado varchar(60), @telefonoEmpleado char(15),
 @celularEmpleado char(15), @puestoEmpleado varchar(25), @fechaContratacionEmpleado datetime2(7),
@@ -91,6 +94,8 @@ AS
 insert into TIPOSCLIENTES(IDTIPOCLIENTE,NOMBRE,DESCRIPCION,DESCUENTO) values
   (@IdtipoCliente,@nombreTipo,@descripcionTipo,@descuentoTipo);
 GO
+
+
 
 
 
