@@ -90,3 +90,17 @@ begin
 	UPDATE dbo.PRODUCTOS SET CANTIDAD = CANTIDAD - @cantidad WHERE IDPRODUCTO = @idProducto
 end
 go
+
+create procedure dbo.obtenerProductoPorCodigo @codigo char(15)
+as
+begin
+	SELECT p.IDPRODUCTO,p.CODIGO,p.NOMBRE,p.CANTIDAD,p.PRECIOCOMPRA,p.PRECIOVENTA,p.COLOR FROM dbo.PRODUCTOS p WHERE p.CODIGO = @codigo and p.ACTIVO = 1
+end
+go
+
+create procedure dbo.obtenerProductoPorNombre @nombre varchar(40)
+as
+begin
+	SELECT p.IDPRODUCTO,p.CODIGO,p.NOMBRE,p.CANTIDAD,p.PRECIOCOMPRA,p.PRECIOVENTA,p.COLOR FROM dbo.PRODUCTOS p WHERE p.NOMBRE = @nombre and p.ACTIVO = 1
+end
+go
