@@ -6,13 +6,24 @@ after insert
 as
 begin
 	declare @serie char(3)	
+	declare @actual int
+	declare @limite int
 	select @serie = i.SERIE from inserted i
-	update dbo.SERIES set ACTUAL = ACTUAL + 1 where SERIE = @serie
+	select @actual = s.ACTUAL, @limite = s.LIMITE from dbo.SERIES s where s.SERIE = @serie
+	if @actual > @limite
+	begin
+		update dbo.SERIES set ACTIVA = 0 where SERIE = @serie
+		commit
+	end
+	else if @actual <= @limite
+	begin	
+		update dbo.SERIES set ACTUAL = ACTUAL + 1 where SERIE = @serie
+	end
 end
 go
 
 create procedure dbo.insertarEncabezadoFacturaCliente
-	@nit char(12),
+	@idCliente int,
 	@idEmpleado tinyint,
 	@serie char(3),
 	@descuento float,
@@ -24,7 +35,7 @@ begin
 	declare @numero int
 	set @fecha = CAST(GETDATE() as datetime2)
 	select @numero = ACTUAL from dbo.SERIES where SERIE = @serie
-	INSERT INTO dbo.FACTURASCLIENTES (NIT,IDEMPLEADO,SERIE,NUMERO,FECHA,DESCUENTO,SUBTOTAL,TOTAL) VALUES (@nit,@idEmpleado,@serie,@numero,@fecha,@descuento,@subtotal,@total)
+	INSERT INTO dbo.FACTURASCLIENTES (IDCLIENTE,IDEMPLEADO,SERIE,NUMERO,FECHA,DESCUENTO,SUBTOTAL,TOTAL) VALUES (@idCliente,@idEmpleado,@serie,@numero,@fecha,@descuento,@subtotal,@total)
 	SELECT SCOPE_IDENTITY()
 end
 go
