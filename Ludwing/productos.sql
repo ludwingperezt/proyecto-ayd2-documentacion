@@ -104,3 +104,11 @@ begin
 	SELECT p.IDPRODUCTO,p.CODIGO,p.NOMBRE,p.CANTIDAD,p.PRECIOCOMPRA,p.PRECIOVENTA,p.COLOR FROM dbo.PRODUCTOS p WHERE p.NOMBRE = @nombre and p.ACTIVO = 1
 end
 go
+
+create procedure dbo.busquedaExactaProducto @codigo char(15), @nombre varchar(40)
+as
+begin
+	SELECT p.IDPRODUCTO,p.CODIGO,p.NOMBRE,p.CANTIDAD,p.PRECIOCOMPRA,p.PRECIOVENTA,p.COLOR FROM dbo.PRODUCTOS p 
+	WHERE p.CODIGO = @codigo or p.NOMBRE = @nombre and p.ACTIVO = 1
+end
+go
