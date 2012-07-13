@@ -28,3 +28,20 @@ begin
 	SELECT s.SERIE,s.ACTUAL,s.LIMITE,s.IDSUCURSAL,s.IDTERMINAL,s.ACTIVA FROM dbo.SERIES s WHERE s.ACTIVA = 1
 end
 go
+
+create procedure dbo.insertarPrimeraSerieFactura @serie char(3), @actual int, @limite int, @idSucursal tinyint 
+as
+begin
+	declare @ultima int
+	select @ultima = MAX(s.IDTERMINAL) from dbo.SERIES s
+	set @ultima = @ultima + 1
+	INSERT INTO dbo.SERIES VALUES(@serie,@actual,@limite,@idSucursal,@ultima,1)
+end
+go
+
+create procedure dbo.obtenerSerieEspecificaPorEstacion  @serie char(3),@idEstacion smallint
+as
+begin
+	SELECT s.SERIE,s.ACTUAL,s.LIMITE,s.IDSUCURSAL,s.IDTERMINAL,s.ACTIVA FROM dbo.SERIES s WHERE s.SERIE = @serie and s.IDTERMINAL = @idEstacion and s.ACTIVA=1
+end
+go
