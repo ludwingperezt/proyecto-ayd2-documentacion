@@ -79,3 +79,9 @@ BEGIN
 	SELECT SCOPE_IDENTITY()
 END
 GO
+CREATE PROCEDURE dbo.busquedaclnmdir @nombre varchar(100), @direccion varchar(60)
+AS
+BEGIN
+	SELECT IDCLIENTE,IDTIPOCLIENTE,NIT,NOMBRE,DIRECCION from CLIENTES where NOMBRE = @nombre and DIRECCION = @direccion
+END
+GO
