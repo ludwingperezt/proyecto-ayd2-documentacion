@@ -72,3 +72,10 @@ BEGIN
 	SELECT IDCLIENTE,IDTIPOCLIENTE,NIT,NOMBRE,DIRECCION from CLIENTES where NIT=@nit
 END
 GO
+CREATE PROCEDURE dbo.icEspecial @IdtipoCliente tinyint, @nitCliente char(12), @nombreCliente varchar(100), @direccionCliente varchar(60)
+AS
+BEGIN
+	INSERT INTO dbo.CLIENTES VALUES(@Idtipocliente,@nitCliente,@nombreCliente,@direccionCliente)
+	SELECT SCOPE_IDENTITY()
+END
+GO
